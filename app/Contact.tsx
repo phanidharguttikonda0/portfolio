@@ -98,11 +98,11 @@ export default function ContactSection() {
                   <p className="text-gray-400 mb-4">Or reach out directly:</p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <a
-                      href="mailto:guttikondaphanidharreddy@gmail.com"
+                      href="mailto:phanidharguttikonda0@gmail.com"
                       className="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors truncate"
                     >
                       <Mail className="w-4 h-4" />
-                      guttikondaphanidharreddy@gmail.com
+                      phanidharguttikonda0@gmail.com
                     </a>
                     <a
                       href="tel:+918885858760"

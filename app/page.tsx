@@ -43,51 +43,60 @@ export default function Portfolio() {
   ]
 
   const skills = [
-    { category: "Languages", items: ["Rust", "JavaScript", "TypeScript", "Java"] },
-    { category: "Frameworks", items: ["Axum", "Express.js", "Node.js", "React.js"] },
-    { category: "Databases", items: ["PostgreSQL", "MongoDB", "Redis", "DynamoDB"] },
-    { category: "Cloud & DevOps", items: ["AWS", "Docker", "GitHub Actions", "EC2", "Lambda"] },
-    { category: "Tools & Specialization", items: ["Razorpay API", "WebRTC", "gRPC", "Postman", "Git"] },
+    { category: "Languages", items: ["Rust", "JavaScript (Node.js)", "Java"] },
+    { category: "Frameworks and Libraries", items: ["Axum", "Express.js", "React"] },
+    { category: "Databases", items: ["PostgreSQL", "Redis", "MongoDB", "DynamoDB"] },
+    { category: "Cloud and DevOps", items: ["AWS (EC2, Lambda, SQS, SNS, RDS, ECR)", "Docker", "GitHub Actions"] },
+    { category: "Other Technologies", items: ["gRPC (Microservices)", "WebRTC", "Razorpay API"] },
   ]
 
   const projects = [
     {
       id: 1,
-      title: "SnipSight",
-      description: "Secure URL Shortener & File Sharing Platform",
+      title: "IPL Auction Replica App",
+      description: "Real-time IPL auction platform with live bidding, concurrent participants, and full-room auctions",
       tech: [
-        "Rust (Axum)",
-        "JavaScript",
-        "AWS (Lambda, EC2, SQS, ECR)",
-        "Docker",
-        "GitHub Actions",
-        "Event Driven Architecture",
+        "React (Axum)",
+        "PostgreSQL",
+        "Redis",
+        "WebSockets",
+        "WebRTC",
       ],
       features: [
-        "Modular Microservice Architecture",
-        "Secure URL Shortening",
-        "gRPC Inter-service Communication",
-        "Real-time Analytics",
-        "Asynchronous Operations",
+        "Designed and developed a production-grade real-time IPL auction platform supporting private bidding rooms, concurrent live participants, and full-room auctions using Rust (Axum), WebSockets, and React",
+        "Implemented Axum WebSocket-based bid synchronization and authorization server-side logic, enabling real-time broadcasting, ensuring consistent auction state, real-time updates, and seamless client reconnects under network disruptions",
+        "Engineered a timer-driven auction engine using Redis key expiry events to automate bid closure, Right-To-Match (RTM) workflows, skip handling, and player transitions without blocking application threads",
+        "Architected Redis-backed distributed auction state management for participants, current players, bids, timers, and skip states, enabling crash recovery and race-condition-resistant coordination across concurrent bidders",
+        "Developed financial-grade bidding logic with strict-mode enforcement, per-segment budget buffers, foreign player limits, RTM validation, and deadlock prevention to guarantee auction fairness and correctness",
+        "Built race-resistant bid placement using atomic Redis operations and TTL-based coordination to prevent double bids, overspending, invalid RTM execution, and inconsistent state after high concurrency",
+        "Integrated WebRTC-based audio communication and implemented channel-based inter-task messaging by spawning background worker tasks to safely handle asynchronous and CPU/IO-intensive operations without impacting real-time bid processing",
+        "Designed asynchronous, event-style persistence using background task executors to decouple real-time auction flow from PostgreSQL writes for sold/unsold players, balance updates, and room state transitions",
+        "Implemented a stateless backend architecture with Redis as the coordination backbone, enabling horizontal scalability and reliable multi-instance deployment of auction backend services",
       ],
-      link: "https://web.snipsight.phani.services/",
-      github: "https://github.com/phanidharguttikonda0/SnipSight",
+      link: "https://ipl-auction.phani.services",
+      github: "https://github.com/phanidharguttikonda0/ipl_auction",
       status: "Live",
     },
     {
       id: 2,
-      title: "IPL Auction",
-      description:
-        "Real-Time Multiplayer Bidding System - An Live IPL Auction you can play with ur friends by creating rooms",
-      tech: ["React", "Rust (Axum)", "PostgreSQL", "Redis", "WebSockets", "Job Queue", "WebRTC"],
-      features: [
-        "Designed and built a real-time auction platform supporting private bidding rooms and live participation",
-        "Integrated Axum WebSockets for real-time bidding synchronization, team updates, and user interactions",
-        "Added WebRTC audio communication for live team coordination with future video broadcasting capabilities",
-        "Used Redis for fast in-memory state management and PostgreSQL for reliable data storage with Redis subscriber model for automated bidding responses",
+      title: "SnipSight – Secure File & URL Management Platform",
+      description: "Designed and built a secure file sharing and URL management platform with role-based access control and analytics",
+      tech: [
+        "Rust",
+        "Axum",
+        "gRPC",
+        "AWS",
+        "Docker",
+        "DynamoDB",
       ],
-      link: "https://ipl-auction.phani.services",
-      github: "https://github.com/phanidharguttikonda0/ipl_auction",
+      features: [
+        "Designed and built a secure file sharing and URL management platform with role-based access control and analytics using Rust, gRPC, REST APIs, and MongoDB",
+        "Implemented gRPC-based inter-service communication to enable low-latency, efficient service-to-service operations within a microservices architecture",
+        "Built event-driven backend workflows using AWS SQS and Lambda for analytics ingestion, background processing, and automated email notifications",
+        "Containerized backend services using Docker and deployed via AWS ECR and EC2 with automated CI/CD pipelines using GitHub Actions",
+      ],
+      link: "https://web.snipsight.phani.services/",
+      github: "https://github.com/phanidharguttikonda0/SnipSight",
       status: "Live",
     },
   ]
@@ -167,9 +176,8 @@ export default function Portfolio() {
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className={`transition-colors hover:text-cyan-400 ${
-                    activeSection === item.toLowerCase() ? "text-cyan-400" : "text-gray-300"
-                  }`}
+                  className={`transition-colors hover:text-cyan-400 ${activeSection === item.toLowerCase() ? "text-cyan-400" : "text-gray-300"
+                    }`}
                 >
                   {item}
                 </a>
@@ -222,7 +230,7 @@ export default function Portfolio() {
               </div>
               <div className="flex items-center gap-2 text-gray-400 justify-center">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                <span className="truncate">guttikonda...@gmail.com</span>
+                <span className="truncate">phanidharguttikonda0@gmail.com</span>
               </div>
             </div>
 
@@ -262,17 +270,20 @@ export default function Portfolio() {
               <Card className="bg-black/40 border-purple-500/30 backdrop-blur-md">
                 <CardContent className="p-4 sm:p-6 md:p-8">
                   <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed">
-                    Creative and performance-driven{" "}
-                    <span className="text-cyan-400 font-semibold">Backend Developer</span> with hands-on expertise in
-                    building real-time, event-driven, and microservice-based systems using{" "}
-                    <span className="text-purple-400 font-semibold">Rust (Axum) and Node.js</span>. Skilled in{" "}
-                    <span className="text-cyan-400 font-semibold">AWS services</span> (EC2, Lambda, SQS, SNS, DynamoDB,
-                    RDS),
-                    <span className="text-purple-400 font-semibold">CI/CD automation using GitHub Actions</span>, and
-                    Docker-based deployments. Strong understanding of concurrency, asynchronous runtimes, API design,
-                    and performance-driven backend architecture. Known for{" "}
+                    <span className="text-cyan-400 font-semibold">Backend Developer</span> with hands-on experience in
+                    building scalable microservices, real-time communication systems, and cloud-native applications
+                    using <span className="text-purple-400 font-semibold">Rust (Axum)</span> and{" "}
+                    <span className="text-purple-400 font-semibold">Node.js</span>. Proficient in{" "}
+                    <span className="text-cyan-400 font-semibold">AWS services</span> including EC2, Lambda, SQS, SNS,
+                    DynamoDB, and RDS, with strong experience in{" "}
+                    <span className="text-purple-400 font-semibold">CI/CD automation</span> using GitHub Actions and
+                    Docker-based deployments. Solid understanding of{" "}
                     <span className="text-cyan-400 font-semibold">
-                      problem solving, accountability, and strong team collaboration
+                      asynchronous programming, concurrency, API design (REST and gRPC)
+                    </span>
+                    , and performance-oriented backend architecture. Recognized for strong{" "}
+                    <span className="text-purple-400 font-semibold">
+                      problem-solving skills, ownership mindset, and effective team collaboration
                     </span>
                     .
                   </p>
@@ -301,7 +312,7 @@ export default function Portfolio() {
                   <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
                     <div>
                       <CardTitle className="text-lg sm:text-xl md:text-2xl text-cyan-400">
-                        Software Engineer – Part Time Remote
+                        Software Engineer – Part Time
                       </CardTitle>
                       <CardDescription className="text-base sm:text-lg text-purple-400">Tiny Pal</CardDescription>
                     </div>
@@ -309,7 +320,7 @@ export default function Portfolio() {
                       variant="outline"
                       className="border-cyan-500 text-cyan-400 text-xs sm:text-sm whitespace-nowrap"
                     >
-                      July 2025 – Present
+                      07/2025 – 11/2025
                     </Badge>
                   </div>
                 </CardHeader>
@@ -319,27 +330,28 @@ export default function Portfolio() {
                       <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
                       <span>
                         Developing cloud-hosted backend services using{" "}
-                        <strong>Rust/Node.js, AWS EC2, RDS, and Docker</strong>.
+                        <strong>Node.js, deployed on AWS EC2 and RDS</strong> with Docker-based containerization.
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Cloud className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mt-0.5 flex-shrink-0" />
                       <span>
-                        Built automated <strong>CI/CD pipelines using GitHub Actions</strong>, improving deployment
-                        reliability and reducing manual intervention.
+                        Designed and implemented automated <strong>CI/CD pipelines using GitHub Actions</strong>,
+                        improving deployment reliability and reducing manual operational effort.
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Code className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
                       <span>
-                        Integrated subscription billing and payment automation using <strong>Razorpay APIs</strong>.
+                        Integrated subscription billing and payment automation using <strong>Razorpay APIs</strong>,
+                        ensuring secure and reliable transaction handling.
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Database className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mt-0.5 flex-shrink-0" />
                       <span>
-                        Designed scalable <strong>REST APIs</strong> and optimized data models for performance and
-                        maintainability.
+                        Designed scalable <strong>REST APIs</strong> and optimized relational data models to improve
+                        performance, maintainability, and scalability.
                       </span>
                     </li>
                   </ul>
@@ -351,7 +363,7 @@ export default function Portfolio() {
                   <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
                     <div>
                       <CardTitle className="text-lg sm:text-xl md:text-2xl text-cyan-400">
-                        Software Engineer – Intern Remote
+                        Software Engineer – Intern
                       </CardTitle>
                       <CardDescription className="text-base sm:text-lg text-purple-400">TeCell</CardDescription>
                     </div>
@@ -359,7 +371,7 @@ export default function Portfolio() {
                       variant="outline"
                       className="border-cyan-500 text-cyan-400 text-xs sm:text-sm whitespace-nowrap"
                     >
-                      June – July 2025
+                      06/2025 – 07/2025
                     </Badge>
                   </div>
                 </CardHeader>
@@ -368,29 +380,29 @@ export default function Portfolio() {
                     <li className="flex items-start gap-3">
                       <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
                       <span>
-                        Built serverless event-driven workflows using{" "}
-                        <strong>AWS Lambda, SQS, SNS, EventBridge, and DynamoDB</strong>.
+                        Built serverless, event-driven backend workflows using{" "}
+                        <strong>AWS Lambda, SQS, SNS, and DynamoDB</strong>.
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Cloud className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mt-0.5 flex-shrink-0" />
                       <span>
-                        Implemented <strong>DynamoDB Stream triggers</strong> for real-time workflow automation and data
-                        synchronization.
+                        Implemented <strong>DynamoDB Streams triggers</strong> to enable real-time workflow automation
+                        and near real-time data synchronization.
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Database className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
                       <span>
-                        Designed efficient <strong>DynamoDB tables and indexing strategies</strong> for high-throughput
-                        applications.
+                        Designed <strong>DynamoDB table schemas and indexing strategies</strong> optimized for
+                        high-throughput and low-latency access patterns.
                       </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Code className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400 mt-0.5 flex-shrink-0" />
                       <span>
                         Containerized backend services using <strong>Docker</strong> and integrated{" "}
-                        <strong>AWS CloudWatch</strong> for monitoring and log analysis.
+                        <strong>AWS CloudWatch</strong> for centralized logging, monitoring, and observability.
                       </span>
                     </li>
                   </ul>
