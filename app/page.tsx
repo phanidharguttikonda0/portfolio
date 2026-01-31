@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import ContactSection from "./Contact.tsx"
+import ContactSection from "./Contact"
 import {
   Github,
   Linkedin,
@@ -161,26 +161,32 @@ export default function Portfolio() {
       </motion.div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-purple-500/20">
-        <div className="container mx-auto px-3 sm:px-6 py-3 sm:py-4">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-xl border-b border-purple-500/30 transition-all duration-300">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex justify-between items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent truncate"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent cursor-pointer"
             >
               {"<Phani/>"}
             </motion.div>
-            <div className="hidden md:flex space-x-4 lg:space-x-8 text-sm lg:text-base">
-              {["About", "Experience", "Projects", "Skills", "Contact"].map((item) => (
-                <a
+            <div className="hidden md:flex space-x-6 lg:space-x-10 text-sm lg:text-base">
+              {["About", "Experience", "Projects", "Skills", "Contact"].map((item, index) => (
+                <motion.a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className={`transition-colors hover:text-cyan-400 ${activeSection === item.toLowerCase() ? "text-cyan-400" : "text-gray-300"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                  className={`relative transition-all duration-300 hover:text-cyan-400 font-medium group ${activeSection === item.toLowerCase() ? "text-cyan-400" : "text-gray-300"
                     }`}
                 >
                   {item}
-                </a>
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 transition-all duration-300 group-hover:w-full" />
+                </motion.a>
               ))}
             </div>
           </div>
@@ -188,88 +194,112 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative pt-20">
-        <div className="container mx-auto px-3 sm:px-6 text-center">
+      <section id="hero" className="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="mb-4 sm:mb-8"
           >
-            <div className="w-32 sm:w-40 md:w-48 h-32 sm:h-40 md:h-48 mx-auto mb-6 sm:mb-8 relative">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent p-0.5 sm:p-1 animate-pulse">
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-0.5 sm:p-1">
+            <motion.div
+              className="w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 mx-auto mb-8 sm:mb-12 relative"
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 100, delay: 0.2 }}
+            >
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 p-1 animate-gradientShift">
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-1">
                   <img
                     src="/profile.png"
                     alt="Phanidhar Reddy"
-                    className="w-full h-full rounded-full object-cover object-center"
+                    className="w-full h-full rounded-full object-cover object-center transition-transform duration-500 hover:scale-105"
                   />
                 </div>
               </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/20 to-purple-400/20 blur-xl animate-pulse"></div>
-            </div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/30 to-purple-400/30 blur-2xl animate-pulse"></div>
+            </motion.div>
 
-            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-4 sm:mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent tracking-tight">
+            <motion.h1
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black mb-6 sm:mb-8 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent tracking-tight animate-gradientShift"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
               {"<Phanidhar/>"}
-            </h1>
+            </motion.h1>
 
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 sm:mb-8 px-2">
-              <span className="text-cyan-400">const</span> <span className="text-purple-400">role</span> ={" "}
-              <span className="text-green-400">"Backend Developer & Systems Engineer"</span>
+            <motion.p
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-300 mb-8 sm:mb-10 px-4 max-w-3xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
+              <span className="text-cyan-400 font-semibold">const</span> <span className="text-purple-400 font-semibold">role</span> ={" "}
+              <span className="text-green-400 font-medium">"Backend Developer & Systems Engineer"</span>
               <span className="text-cyan-400">;</span>
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-4 mb-6 sm:mb-8 text-xs sm:text-sm">
-              <div className="flex items-center gap-2 text-gray-400 justify-center">
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                <span>Ongole, AP, India</span>
+            <motion.div
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-10 text-sm sm:text-base"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            >
+              <div className="flex items-center gap-2 text-gray-300 justify-center hover:text-cyan-400 transition-colors duration-300">
+                <MapPin className="w-5 h-5 flex-shrink-0" />
+                <span className="font-medium">Ongole, AP, India</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-400 justify-center">
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                <span>+91 88858 58760</span>
+              <div className="flex items-center gap-2 text-gray-300 justify-center hover:text-purple-400 transition-colors duration-300">
+                <Phone className="w-5 h-5 flex-shrink-0" />
+                <span className="font-medium">+91 88858 58760</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-400 justify-center">
-                <Mail className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
-                <span className="truncate">phanidharguttikonda0@gmail.com</span>
+              <div className="flex items-center gap-2 text-gray-300 justify-center hover:text-pink-400 transition-colors duration-300">
+                <Mail className="w-5 h-5 flex-shrink-0" />
+                <span className="truncate font-medium">phanidharguttikonda0@gmail.com</span>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex justify-center flex-wrap gap-3 sm:gap-6 mb-8">
+            <motion.div
+              className="flex justify-center flex-wrap gap-4 sm:gap-6 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+            >
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/40 hover:to-purple-500/40 transition-all duration-300 border border-cyan-500/30"
+                  whileHover={{ scale: 1.15, rotate: 5 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-3 sm:p-4 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/50 hover:to-purple-500/50 transition-all duration-300 border border-cyan-500/40 hover:border-purple-400 hover:shadow-lg hover:shadow-cyan-500/50"
                 >
-                  <social.icon className="w-4 h-4 sm:w-6 sm:h-6" />
+                  <social.icon className="w-5 h-5 sm:w-6 sm:h-6" />
                 </motion.a>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-12 sm:py-20 relative">
-        <div className="container mx-auto px-3 sm:px-6">
+      <section id="about" className="py-16 sm:py-24 lg:py-32 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center mb-12 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradientShift">
               Professional Summary
             </h2>
-            <div className="max-w-4xl mx-auto">
-              <Card className="bg-black/40 border-purple-500/30 backdrop-blur-md">
-                <CardContent className="p-4 sm:p-6 md:p-8">
-                  <p className="text-sm sm:text-base md:text-lg text-gray-300 leading-relaxed">
+            <div className="max-w-5xl mx-auto">
+              <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl hover:border-cyan-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 group">
+                <CardContent className="p-6 sm:p-8 md:p-10 lg:p-12">
+                  <p className="text-base sm:text-lg md:text-xl leading-relaxed text-gray-200 group-hover:text-gray-100 transition-colors duration-300">
                     <span className="text-cyan-400 font-semibold">Backend Developer</span> with hands-on experience in
                     building scalable microservices, real-time communication systems, and cloud-native applications
                     using <span className="text-purple-400 font-semibold">Rust (Axum)</span> and{" "}
@@ -295,37 +325,37 @@ export default function Portfolio() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-12 sm:py-20 relative">
-        <div className="container mx-auto px-3 sm:px-6">
+      <section id="experience" className="py-16 sm:py-24 lg:py-32 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center mb-12 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradientShift">
               Professional Experience
             </h2>
-            <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
-              <Card className="bg-black/40 border-purple-500/30 backdrop-blur-md">
-                <CardHeader className="p-4 sm:p-6">
+            <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
+              <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl hover:border-cyan-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/20 hover:scale-[1.02] group">
+                <CardHeader className="p-5 sm:p-7">
                   <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
                     <div>
-                      <CardTitle className="text-lg sm:text-xl md:text-2xl text-cyan-400">
+                      <CardTitle className="text-xl sm:text-2xl md:text-3xl text-cyan-400 group-hover:text-cyan-300 transition-colors">
                         Software Engineer – Part Time
                       </CardTitle>
-                      <CardDescription className="text-base sm:text-lg text-purple-400">Tiny Pal</CardDescription>
+                      <CardDescription className="text-lg sm:text-xl text-purple-400 font-medium group-hover:text-purple-300 transition-colors">Tiny Pal</CardDescription>
                     </div>
                     <Badge
                       variant="outline"
-                      className="border-cyan-500 text-cyan-400 text-xs sm:text-sm whitespace-nowrap"
+                      className="border-cyan-500 text-cyan-400 text-sm sm:text-base whitespace-nowrap font-semibold"
                     >
                       07/2025 – 11/2025
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm md:text-base text-gray-300">
+                <CardContent className="p-5 sm:p-7 pt-0">
+                  <ul className="space-y-3 sm:space-y-4 text-sm sm:text-base md:text-lg text-gray-200 group-hover:text-gray-100 transition-colors">
                     <li className="flex items-start gap-3">
                       <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
                       <span>
@@ -358,25 +388,25 @@ export default function Portfolio() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-black/40 border-purple-500/30 backdrop-blur-md">
-                <CardHeader className="p-4 sm:p-6">
+              <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl hover:border-purple-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-purple-500/20 hover:scale-[1.02] group">
+                <CardHeader className="p-5 sm:p-7">
                   <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
                     <div>
-                      <CardTitle className="text-lg sm:text-xl md:text-2xl text-cyan-400">
+                      <CardTitle className="text-xl sm:text-2xl md:text-3xl text-cyan-400 group-hover:text-cyan-300 transition-colors">
                         Software Engineer – Intern
                       </CardTitle>
-                      <CardDescription className="text-base sm:text-lg text-purple-400">TeCell</CardDescription>
+                      <CardDescription className="text-lg sm:text-xl text-purple-400 font-medium group-hover:text-purple-300 transition-colors">TeCell</CardDescription>
                     </div>
                     <Badge
                       variant="outline"
-                      className="border-cyan-500 text-cyan-400 text-xs sm:text-sm whitespace-nowrap"
+                      className="border-cyan-500 text-cyan-400 text-sm sm:text-base whitespace-nowrap font-semibold"
                     >
                       06/2025 – 07/2025
                     </Badge>
                   </div>
                 </CardHeader>
-                <CardContent className="p-4 sm:p-6 pt-0">
-                  <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm md:text-base text-gray-300">
+                <CardContent className="p-5 sm:p-7 pt-0">
+                  <ul className="space-y-3 sm:space-y-4 text-sm sm:text-base md:text-lg text-gray-200 group-hover:text-gray-100 transition-colors">
                     <li className="flex items-start gap-3">
                       <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 mt-0.5 flex-shrink-0" />
                       <span>
@@ -414,18 +444,18 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-12 sm:py-20 relative">
-        <div className="container mx-auto px-3 sm:px-6">
+      <section id="projects" className="py-16 sm:py-24 lg:py-32 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center mb-12 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 sm:mb-12 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradientShift">
               Key Projects
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 max-w-7xl mx-auto">
               {projects.map((project, index) => (
                 <motion.div
                   key={project.id}
@@ -433,52 +463,52 @@ export default function Portfolio() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.2 }}
                 >
-                  <Card className="bg-black/40 border-purple-500/30 backdrop-blur-md h-full">
-                    <CardHeader className="p-4 sm:p-6">
-                      <div className="flex flex-col sm:flex-row justify-between items-start gap-2 mb-2">
-                        <CardTitle className="text-base sm:text-lg md:text-xl text-cyan-400">{project.title}</CardTitle>
+                  <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl hover:border-cyan-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/20 hover:scale-[1.01] group flex flex-col h-full">
+                    <CardHeader className="p-5 sm:p-6 lg:p-7">
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mb-3">
+                        <CardTitle className="text-xl sm:text-2xl md:text-2xl lg:text-3xl text-cyan-400 group-hover:text-cyan-300 transition-colors leading-tight">{project.title}</CardTitle>
                         <Badge
                           variant={project.status === "Live" ? "default" : "secondary"}
                           className={
                             project.status === "Live"
-                              ? "bg-green-500/20 text-green-400 border-green-500/30 text-xs"
-                              : "bg-yellow-500/20 text-yellow-400 border-yellow-500/30 text-xs"
+                              ? "bg-green-500/20 text-green-400 border-green-500/40 text-xs sm:text-sm font-semibold whitespace-nowrap"
+                              : "bg-yellow-500/20 text-yellow-400 border-yellow-500/40 text-xs sm:text-sm font-semibold whitespace-nowrap"
                           }
                         >
                           {project.status}
                         </Badge>
                       </div>
-                      <CardDescription className="text-xs sm:text-sm md:text-base text-gray-300">
+                      <CardDescription className="text-sm sm:text-base md:text-lg text-gray-200 group-hover:text-gray-100 transition-colors leading-relaxed">
                         {project.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="p-4 sm:p-6 pt-0">
-                      <div className="space-y-4">
+                    <CardContent className="p-5 sm:p-6 lg:p-7 pt-0 flex-1 flex flex-col">
+                      <div className="space-y-5 sm:space-y-6 flex-1">
                         <div>
-                          <p className="text-xs sm:text-sm text-gray-400 mb-2">Technologies:</p>
-                          <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                          <p className="text-sm sm:text-base font-semibold text-gray-300 mb-3">Technologies:</p>
+                          <div className="flex flex-wrap gap-2">
                             {project.tech.map((tech) => (
-                              <Badge key={tech} variant="outline" className="border-cyan-500/30 text-cyan-300 text-xs">
+                              <Badge key={tech} variant="outline" className="border-cyan-500/40 text-cyan-300 text-xs sm:text-sm hover:bg-cyan-500/10 transition-colors">
                                 {tech}
                               </Badge>
                             ))}
                           </div>
                         </div>
-                        <div>
-                          <p className="text-xs sm:text-sm text-gray-400 mb-2">Key Features:</p>
-                          <ul className="space-y-1">
+                        <div className="flex-1 flex flex-col">
+                          <p className="text-sm sm:text-base font-semibold text-gray-300 mb-3">Key Features:</p>
+                          <ul className="space-y-2 sm:space-y-2.5 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin">
                             {project.features.map((feature) => (
-                              <li key={feature} className="text-xs sm:text-sm text-gray-300 flex items-start gap-2">
-                                <div className="w-1 h-1 bg-purple-400 rounded-full mt-1 flex-shrink-0"></div>
+                              <li key={feature} className="text-xs sm:text-sm md:text-base text-gray-200 group-hover:text-gray-100 flex items-start gap-2.5 leading-relaxed transition-colors">
+                                <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0 group-hover:bg-cyan-400 transition-colors"></div>
                                 <span>{feature}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-2 pt-4">
+                        <div className="flex flex-col sm:flex-row gap-3 pt-6 mt-auto">
                           <Button
                             asChild
-                            className="w-full sm:flex-1 bg-cyan-500 hover:bg-cyan-600 text-black font-semibold text-xs sm:text-sm"
+                            className="w-full sm:flex-1 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-black font-semibold text-sm sm:text-base shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 transition-all"
                           >
                             <a href={project.link} target="_blank" rel="noopener noreferrer">
                               <ExternalLink className="w-4 h-4 mr-2" />
@@ -488,7 +518,7 @@ export default function Portfolio() {
                           <Button
                             asChild
                             variant="outline"
-                            className="w-full sm:flex-1 border-purple-500 text-purple-400 hover:bg-purple-500/10 text-xs sm:text-sm bg-transparent"
+                            className="w-full sm:flex-1 border-purple-500 text-purple-400 hover:bg-purple-500/20 hover:border-purple-400 text-sm sm:text-base font-semibold bg-transparent shadow-lg shadow-purple-500/20 hover:shadow-purple-500/40 transition-all"
                           >
                             <a href={project.github} target="_blank" rel="noopener noreferrer">
                               <Github className="w-4 h-4 mr-2" />
@@ -507,18 +537,18 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-12 sm:py-20 relative">
-        <div className="container mx-auto px-3 sm:px-6">
+      <section id="skills" className="py-16 sm:py-24 lg:py-32 relative">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-12 sm:mb-16 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-10 sm:mb-14 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradientShift">
               Technical Skills
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 sm:gap-6 lg:gap-7">
               {skills.map((skill, index) => (
                 <motion.div
                   key={skill.category}
@@ -526,14 +556,14 @@ export default function Portfolio() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="bg-black/40 border-purple-500/30 backdrop-blur-md h-full">
-                    <CardHeader className="p-4 sm:p-6">
-                      <CardTitle className="text-sm sm:text-base md:text-lg text-cyan-400">{skill.category}</CardTitle>
+                  <Card className="bg-black/40 border-purple-500/30 backdrop-blur-xl hover:border-cyan-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/20 hover:scale-105 group h-full overflow-hidden">
+                    <CardHeader className="p-5 sm:p-6">
+                      <CardTitle className="text-base sm:text-lg md:text-xl text-cyan-400 group-hover:text-cyan-300 transition-colors break-words">{skill.category}</CardTitle>
                     </CardHeader>
-                    <CardContent className="p-4 sm:p-6 pt-0">
-                      <div className="flex flex-wrap gap-2">
+                    <CardContent className="p-5 sm:p-6 pt-0 overflow-hidden">
+                      <div className="flex flex-wrap gap-2 w-full">
                         {skill.items.map((item) => (
-                          <Badge key={item} variant="outline" className="border-purple-500/30 text-purple-300 text-xs">
+                          <Badge key={item} variant="outline" className="border-purple-500/40 text-purple-300 text-xs hover:bg-purple-500/10 transition-colors whitespace-normal break-words max-w-full">
                             {item}
                           </Badge>
                         ))}
@@ -548,7 +578,7 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 sm:py-20 relative">
+      <section id="contact" className="py-16 sm:py-24 lg:py-32 relative">
         <ContactSection />
       </section>
     </div>
