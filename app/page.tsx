@@ -496,11 +496,15 @@ export default function Portfolio() {
                         </div>
                         <div className="flex-1 flex flex-col">
                           <p className="text-sm sm:text-base font-semibold text-gray-300 mb-3">Key Features:</p>
-                          <ul className="space-y-2 sm:space-y-2.5 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin">
-                            {project.features.map((feature) => (
-                              <li key={feature} className="text-xs sm:text-sm md:text-base text-gray-200 group-hover:text-gray-100 flex items-start gap-2.5 leading-relaxed transition-colors">
+                          <ul className="space-y-1 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin">
+                            {project.features.map((feature, idx) => (
+                              <li
+                                key={feature}
+                                className={`text-xs sm:text-sm md:text-base text-gray-200 flex items-start gap-2.5 leading-relaxed transition-all duration-200 p-2.5 rounded-md hover:bg-cyan-500/10 hover:text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-cyan-500/10 cursor-default ${idx % 2 === 0 ? 'bg-black/20' : 'bg-purple-500/5'
+                                  }`}
+                              >
                                 <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0 group-hover:bg-cyan-400 transition-colors"></div>
-                                <span>{feature}</span>
+                                <span className="flex-1">{feature}</span>
                               </li>
                             ))}
                           </ul>
