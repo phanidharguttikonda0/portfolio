@@ -18,12 +18,20 @@ export default function ContactSection() {
 
     if (!formRef.current) return
 
+    const formData = new FormData(formRef.current)
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string
+    const subject = formData.get("title") as string
+    const userMessage = formData.get("message") as string
+
+    const formattedMessage = `Name: ${name}\nEmail: ${email}\n\nSubject: ${subject}\n\nMessage:\n${userMessage}`
+
     emailjs
-      .sendForm(
-        "service_hslfvlj",     // replace with your actual EmailJS service ID
-        "template_rwokhf8",    // replace with your template ID
-        formRef.current,
-        "zQrQxGsqlki6EOCfU"      // replace with your public key
+      .send(
+        "service_apwur38",
+        "template_owk6pa2",
+        { message: formattedMessage },
+        "Gx1odOdBWOrXLGygZ"
       )
       .then(() => {
         setStatus("success")
